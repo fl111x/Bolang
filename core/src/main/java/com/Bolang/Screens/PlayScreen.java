@@ -6,7 +6,9 @@ import com.Bolang.Object_Game.Ground;
 import com.Bolang.Object_Game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -16,12 +18,16 @@ public class PlayScreen implements Screen {
     private Player player;
     private Array<Ground> grounds;
     private final int GRAVITY = -700;
-    private final Gap gap = new Gap(30,300);
+    private final Gap gap = new Gap(30,350);
     private int playerHp;
-    int score = 0;
-    public PlayScreen(Bolang game, int playerHp){
+    private int SCORE;
+    private Texture smallHP;
+    private BitmapFont font;
+
+    public PlayScreen(Bolang game, int playerHp, int SCORE) {
         this.game = game;
         this.playerHp = playerHp;
+        this.SCORE = SCORE;
     }
 
     @Override
@@ -33,6 +39,10 @@ public class PlayScreen implements Screen {
         grounds.add(new Ground(grounds.first().getWidth()+gap.getGapWidth(),0,"Grounds/Ground.png"));
         grounds.add(new Ground(grounds.get(1).getX()+grounds.get(1).getWidth()+gap.getGapWidth(),0,"Grounds/Ground.png"));
 
+        smallHP = new Texture("Player/Heart_small_player.png");
+
+        font = new BitmapFont(Gdx.files.internal("font/Dmg.fnt"));
+
         player = new Player(50,grounds.first().getHeight(),"Player/player.png");
         player.setHealthPoint(playerHp);
     }
@@ -41,25 +51,26 @@ public class PlayScreen implements Screen {
     public void render(float v) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         ScreenUtils.clear(0,0,0,1);
-        score += 1;
+        SCORE += 1;
         player.playerGravity(GRAVITY);
-        if(Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)){
-            player.playerJump();
-        }
+
 
 
         for(int i=0;i<grounds.size;i++){
             grounds.get(i).groundMove();
 
             if(grounds.get(i).getRect().collidesWith(player.getRect())){
+                if(Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)){
+                    player.playerJump();
+                }
                 player.setY(grounds.get(i).getHeight());
             }
 
             if(grounds.get(i).mobCollision(player)){
                 player.gotDmg();
                 this.dispose();
-                game.setScreen(new DmgScreen(game, player.getHealthPoint()));
-
+                System.out.println("score pas dmg :"+SCORE);
+                game.setScreen(new DmgScreen(game, player.getHealthPoint(),SCORE));
             }
 
             int prevIndex = (i == 0) ? grounds.size - 1 : i - 1;
@@ -69,7 +80,7 @@ public class PlayScreen implements Screen {
 
         if (player.isPlayerDeath()){
             this.dispose();
-            game.setScreen(new RestartScreen(game));
+            game.setScreen(new RestartScreen(game,SCORE));
         }
 
         game.batch.begin();
@@ -81,11 +92,12 @@ public class PlayScreen implements Screen {
         }
         if(player.isPlayerFall(gap)){
             this.dispose();
-            game.setScreen(new RestartScreen(game));
+            game.setScreen(new RestartScreen(game,SCORE));
         }
+        game.batch.draw(smallHP,0,990);
+        font.draw(game.batch,"SCORE :"+SCORE,1300,1060);
+        font.draw(game.batch," "+player.getHealthPoint(),smallHP.getWidth(),1060);
 
-
-        System.out.println(score);
         game.batch.end();
 
     }

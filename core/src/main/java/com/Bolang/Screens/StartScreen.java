@@ -22,6 +22,8 @@ public class StartScreen implements Screen {
     Sound sound;
     Environment eagle;
 
+    final int playerHp = 3;
+    final int score = 0;
 
     public StartScreen(Bolang game) {
         this.game = game;
@@ -50,7 +52,7 @@ public class StartScreen implements Screen {
             game.batch.draw(playButtonActive, START_BUTTON_X, START_BUTTON_Y);
             if (Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new PlayScreen(game,3));
+                game.setScreen(new PlayScreen(game,playerHp,score));
                 sound.play();
                 music.stop();
 

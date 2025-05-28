@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
+
 public class DmgScreen implements Screen {
     private Bolang game;
     private int playerHp;
@@ -23,9 +25,12 @@ public class DmgScreen implements Screen {
 
     Music music;
 
-    public DmgScreen(Bolang game,int playerHp){
+    int scoreGame;
+
+    public DmgScreen(Bolang game,int playerHp, int scoreGame){
         this.game = game;
         this.playerHp = playerHp;
+        this.scoreGame = scoreGame;
 
     }
 
@@ -51,7 +56,7 @@ public class DmgScreen implements Screen {
         if(Gdx.input.isTouched()){
             music.stop();
             this.dispose();
-            game.setScreen(new PlayScreen(game,playerHp));
+            game.setScreen(new PlayScreen(game,playerHp,scoreGame));
         }
         font.draw(game.batch,"You got "+ playerHp+ " heart left",505,907);
         font.draw(game.batch,"Click to continue",559,100);
