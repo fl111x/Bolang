@@ -6,7 +6,7 @@ import com.Bolang.Object_Game.Ground;
 import com.Bolang.Object_Game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
@@ -16,13 +16,15 @@ public class PlayScreen implements Screen {
     private Bolang game;
     private Texture background;
     private Player player;
+    private Texture smallHP;
+    private BitmapFont font;
+    private Music music1;
+    private Music music2;
     private Array<Ground> grounds;
     private final int GRAVITY = -700;
     private final Gap gap = new Gap(30,350);
     private int playerHp;
     private int SCORE;
-    private Texture smallHP;
-    private BitmapFont font;
 
     public PlayScreen(Bolang game, int playerHp, int SCORE) {
         this.game = game;
@@ -45,6 +47,14 @@ public class PlayScreen implements Screen {
 
         player = new Player(50,grounds.first().getHeight(),"Player/player.png");
         player.setHealthPoint(playerHp);
+
+        music1 = Gdx.audio.newMusic(Gdx.files.internal("music/music1.mp3"));
+        music1.play();
+        music1.setLooping(true);
+        music1.setVolume(0.5f);
+        music2 = Gdx.audio.newMusic(Gdx.files.internal("music/music3.mp3"));
+        music2.setLooping(true);
+        music2.setVolume(0.5f);
     }
 
     @Override
@@ -54,6 +64,10 @@ public class PlayScreen implements Screen {
         SCORE += 1;
         player.playerGravity(GRAVITY);
 
+        if(SCORE > 500){
+            music1.stop();
+            music2.play();
+        }
 
 
         for(int i=0;i<grounds.size;i++){
@@ -124,6 +138,13 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        music1.stop();
+        music2.stop();
+        music1.dispose();
+        music2.dispose();
+        background.dispose();
+        player.getObjTexture().dispose();
+        font.dispose();
+        smallHP.dispose();
     }
 }

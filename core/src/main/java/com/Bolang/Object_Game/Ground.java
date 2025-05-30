@@ -1,8 +1,5 @@
 package com.Bolang.Object_Game;
 
-import com.Bolang.Bolang;
-import com.Bolang.Screens.RestartScreen;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -10,19 +7,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Ground extends ObjGame{
+    private static final int MAX_SPEED = 600;
+    private static final int MAX_X_MOB = 200;
+    private static final int MIN_X_MOB = 400;
+    private static final int TOTAL_MOBS = 2;
+    private static final int SPEED_INCREMENT = 10;
+    private static final int START_SPEED = 100;
     private float groundSpeed;
-    private final int maxSpeed = 600;
     private ArrayList<Mob> Mobs;
 
     public Ground(float x, float y, String path) {
         super(x, y, path);
-        groundSpeed = 100;
+        groundSpeed = START_SPEED;
         Mobs = new ArrayList<>();
         createMobs();
     }
 
     private void createMobs(){
-        for (int i = 0;i < 2;i++){
+        for (int i = 0;i < TOTAL_MOBS;i++){
             Mobs.add(new Mob(-100,super.getHeight(),"Mob/test_"+(i+1)+".png"));
         }
         mobsPosition();
@@ -30,14 +32,14 @@ public class Ground extends ObjGame{
 
     private int mobSpawn(){
         Random rand = new Random();
-        return rand.nextInt(2);
+        return rand.nextInt(TOTAL_MOBS);
     }
 
 
     public void mobsPosition(){
         Random rand = new Random();
-        float maxX = super.getX() + super.getWidth() - 200;
-        float minX = super.getX() + 400;
+        float maxX = super.getX() + super.getWidth() - MAX_X_MOB;
+        float minX = super.getX() + MIN_X_MOB;
         float x1 = rand.nextFloat(maxX-minX+1)+minX;
 
         Mobs.get(mobSpawn()).setX(x1);
@@ -57,10 +59,10 @@ public class Ground extends ObjGame{
     }
 
     public void speedIncrement(){
-        if (groundSpeed > maxSpeed){
-            groundSpeed = maxSpeed;
+        if (groundSpeed > MAX_SPEED){
+            groundSpeed = MAX_SPEED;
         }else{
-            groundSpeed += 10;
+            groundSpeed += SPEED_INCREMENT;
         }
 
         for (Mob mob : Mobs){

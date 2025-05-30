@@ -4,28 +4,25 @@ import com.Bolang.Bolang;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Align;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 
 public class DmgScreen implements Screen {
+    private static final int HEART_X =609;
+    private static final int HEART_Y =308;
+
     private Bolang game;
     private int playerHp;
 
 
-    Texture background;
-    Texture heart;
+    private Texture background;
+    private Texture heart;
 
-    BitmapFont font;
+    private BitmapFont font;
+    private Music music;
 
-    Music music;
-
-    int scoreGame;
+    private int scoreGame;
 
     public DmgScreen(Bolang game,int playerHp, int scoreGame){
         this.game = game;
@@ -40,16 +37,17 @@ public class DmgScreen implements Screen {
         heart = new Texture("Player/Heart_player.png");
         font = new BitmapFont(Gdx.files.internal("font/Dmg.fnt"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music/music4.mp3"));
+        music.play();
+        music.setLooping(true);
     }
 
     @Override
     public void render(float v) {
-        music.play();
         game.batch.begin();
         game.batch.draw(background,0,0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         if(playerHp==2){
-            game.batch.draw(heart,609,308);
-            game.batch.draw(heart,609+heart.getWidth(),308);
+            game.batch.draw(heart,HEART_X,HEART_Y);
+            game.batch.draw(heart,HEART_X+heart.getWidth(),HEART_Y);
         }else{
             game.batch.draw(heart,Bolang.GAME_WITDH/2 - heart.getWidth()/2,Bolang.GAME_HEIGHT/2 - heart.getHeight()/2);
         }
