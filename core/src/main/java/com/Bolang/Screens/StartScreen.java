@@ -1,7 +1,6 @@
 package com.Bolang.Screens;
 
 import com.Bolang.Bolang;
-import com.Bolang.Environment.Environment;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -20,7 +19,6 @@ public class StartScreen implements Screen {
     Texture playButtonInactive;
     Music music;
     Sound sound;
-    Environment eagle;
 
     final int playerHp = 3;
     final int score = 0;
@@ -35,7 +33,6 @@ public class StartScreen implements Screen {
         background = new Texture("background.png");
         playButtonActive = new Texture("playButtonActive.png");
         playButtonInactive = new Texture("playButtonInactive.png");
-        eagle = new Environment(Bolang.GAME_WITDH,900,"eagle.png");
         music = Gdx.audio.newMusic(Gdx.files.internal("music/music4.mp3"));
         sound = Gdx.audio.newSound(Gdx.files.internal("music/sfx/coin2.mp3"));
     }
@@ -60,9 +57,7 @@ public class StartScreen implements Screen {
         }else {
             game.batch.draw(playButtonInactive, START_BUTTON_X, START_BUTTON_Y);
         }
-        game.batch.draw(eagle.getObj(), eagle.getX(), eagle.getY());
-        eagle.envMove();
-        eagle.envUpdatePosition(Bolang.GAME_WITDH);
+
 
         game.batch.end();
 

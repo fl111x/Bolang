@@ -10,7 +10,7 @@ public class Ground extends ObjGame{
     private static final int MAX_SPEED = 600;
     private static final int MAX_X_MOB = 200;
     private static final int MIN_X_MOB = 400;
-    private static final int TOTAL_MOBS = 2;
+    private static final int TOTAL_MOBS = 15;
     private static final int SPEED_INCREMENT = 10;
     private static final int START_SPEED = 100;
     private float groundSpeed;
@@ -25,7 +25,7 @@ public class Ground extends ObjGame{
 
     private void createMobs(){
         for (int i = 0;i < TOTAL_MOBS;i++){
-            Mobs.add(new Mob(-100,super.getHeight(),"Mob/test_"+(i+1)+".png"));
+            Mobs.add(new Mob(-100,super.getHeight(),"Mob/mob"+(i+1)+".png"));
         }
         mobsPosition();
     }
