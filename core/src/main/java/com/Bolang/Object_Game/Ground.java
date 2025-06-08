@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Ground extends ObjGame{
-    private static final int MAX_SPEED = 600;
     private static final int MAX_X_MOB = 200;
     private static final int MIN_X_MOB = 400;
     private static final int TOTAL_MOBS = 15;
-    private static final int SPEED_INCREMENT = 10;
-    private static final int START_SPEED = 100;
+    private static final float SPEED_INCREMENT = 0.1f;
+    private static final float START_SPEED = 600;
     private float groundSpeed;
     private ArrayList<Mob> Mobs;
 
@@ -59,12 +58,7 @@ public class Ground extends ObjGame{
     }
 
     public void speedIncrement(){
-        if (groundSpeed > MAX_SPEED){
-            groundSpeed = MAX_SPEED;
-        }else{
-            groundSpeed += SPEED_INCREMENT;
-        }
-
+        groundSpeed += SPEED_INCREMENT;
         for (Mob mob : Mobs){
             mob.setMobSpeed(groundSpeed);
         }

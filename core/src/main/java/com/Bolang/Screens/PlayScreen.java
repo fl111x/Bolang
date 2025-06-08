@@ -21,10 +21,11 @@ public class PlayScreen implements Screen {
     private Music music1;
     private Music music2;
     private Array<Ground> grounds;
-    private final int GRAVITY = -700;
-    private final Gap gap = new Gap(30,350);
+    private final int GRAVITY = -800;
+    private final Gap gap = new Gap(250,350);
     private int playerHp;
     private int SCORE;
+    private int CHANGE_MUSIC_SCORE = 5000;
 
     public PlayScreen(Bolang game, int playerHp, int SCORE) {
         this.game = game;
@@ -64,20 +65,24 @@ public class PlayScreen implements Screen {
         SCORE += 1;
         player.playerGravity(GRAVITY);
 
-        if(SCORE > 500){
+        if(SCORE > CHANGE_MUSIC_SCORE){
             music1.stop();
             music2.play();
         }
 
-
+        if(Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)){
+            player.playerJump();
+        }
         for(int i=0;i<grounds.size;i++){
             grounds.get(i).groundMove();
 
             if(grounds.get(i).getRect().collidesWith(player.getRect())){
-                if(Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)){
-                    player.playerJump();
+
+
+                if(player.getY() >= gap.getGapHeight()){
+                    player.setY(grounds.get(i).getHeight());
                 }
-                player.setY(grounds.get(i).getHeight());
+
             }
 
             if(grounds.get(i).mobCollision(player)){

@@ -1,7 +1,6 @@
 package com.Bolang.Screens;
 
 import com.Bolang.Bolang;
-import com.Bolang.Environment.Environment;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
