@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -38,7 +39,6 @@ public class RestartScreen implements Screen {
         this.endScore = endScore;
     }
 
-
     @Override
     public void show() {
         background = new Texture("background.png");
@@ -69,11 +69,10 @@ public class RestartScreen implements Screen {
         }else {
             game.batch.draw(restartButtonInactive, RESTART_BUTTON_X, RESTART_BUTTON_Y);
         }
+        font.setColor(Color.BLACK);
         font.draw(game.batch,"Score:"+endScore,SCORE_X,SCORE_Y);
         font.draw(game.batch,"High Score:"+highScore,HIGH_SCORE_X,HIGH_SCORE_Y);
         game.batch.end();
-
-
     }
 
     public void saveHighScore(int score){
@@ -86,7 +85,6 @@ public class RestartScreen implements Screen {
         } else {
             this.highScore = storedHighScore;
         }
-        System.out.println("High Score: " + this.highScore);
     }
 
     @Override
@@ -111,6 +109,11 @@ public class RestartScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        restartButtonActive.dispose();
+        restartButtonInactive.dispose();
+        music.dispose();
+        sound.dispose();
+        font.dispose();
     }
 }

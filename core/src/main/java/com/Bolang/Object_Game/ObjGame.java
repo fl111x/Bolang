@@ -10,17 +10,6 @@ public class ObjGame {
     private Texture objTexture;
     private CollisionRect rect;
 
-    public ObjGame(String path) {
-        this.objTexture = new Texture(Gdx.files.internal(path));
-        this.width = objTexture.getWidth();
-        this.height = objTexture.getHeight();
-    }
-
-    public ObjGame(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-
     public ObjGame(float x, float y, String path){
         this.x=x;
         this.y=y;
@@ -28,16 +17,6 @@ public class ObjGame {
         width=objTexture.getWidth();
         height=objTexture.getHeight();
         rect=new CollisionRect(x,y,width,height);
-    }
-
-    public ObjGame(float x,float y,int width,int height,String path){
-        this.x=x;
-        this.y=y;
-        this.width=width;
-        this.height=height;
-
-        this.objTexture=new Texture(path);
-
     }
 
     public CollisionRect getRect() {

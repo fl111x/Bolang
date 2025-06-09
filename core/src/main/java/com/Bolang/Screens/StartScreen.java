@@ -57,11 +57,7 @@ public class StartScreen implements Screen {
         }else {
             game.batch.draw(playButtonInactive, START_BUTTON_X, START_BUTTON_Y);
         }
-
-
         game.batch.end();
-
-
     }
 
     @Override
@@ -86,6 +82,10 @@ public class StartScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        playButtonActive.dispose();
+        playButtonInactive.dispose();
+        music.dispose();
+        sound.dispose();
     }
 }

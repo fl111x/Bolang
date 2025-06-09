@@ -4,8 +4,11 @@ import com.Bolang.Bolang;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
+import java.awt.*;
 
 
 public class DmgScreen implements Screen {
@@ -56,6 +59,7 @@ public class DmgScreen implements Screen {
             this.dispose();
             game.setScreen(new PlayScreen(game,playerHp,scoreGame));
         }
+        font.setColor(Color.BLACK);
         font.draw(game.batch,"You got "+ playerHp+ " heart left",505,907);
         font.draw(game.batch,"Click to continue",559,100);
         game.batch.end();
@@ -83,6 +87,9 @@ public class DmgScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        heart.dispose();
+        font.dispose();
+        music.dispose();
     }
 }

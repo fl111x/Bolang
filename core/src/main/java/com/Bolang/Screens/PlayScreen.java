@@ -7,6 +7,7 @@ import com.Bolang.Object_Game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
@@ -22,7 +23,7 @@ public class PlayScreen implements Screen {
     private Music music2;
     private Array<Ground> grounds;
     private final int GRAVITY = -800;
-    private final Gap gap = new Gap(250,350);
+    private final Gap gap = new Gap(150,350);
     private int playerHp;
     private int SCORE;
     private int CHANGE_MUSIC_SCORE = 5000;
@@ -64,22 +65,21 @@ public class PlayScreen implements Screen {
         ScreenUtils.clear(0,0,0,1);
         SCORE += 1;
         player.playerGravity(GRAVITY);
-
         if(SCORE > CHANGE_MUSIC_SCORE){
             music1.stop();
             music2.play();
         }
 
-        if(Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)){
-            player.playerJump();
-        }
+
         for(int i=0;i<grounds.size;i++){
             grounds.get(i).groundMove();
 
             if(grounds.get(i).getRect().collidesWith(player.getRect())){
 
-
                 if(player.getY() >= gap.getGapHeight()){
+                    if(Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)){
+                        player.playerJump();
+                    }
                     player.setY(grounds.get(i).getHeight());
                 }
 
@@ -88,7 +88,6 @@ public class PlayScreen implements Screen {
             if(grounds.get(i).mobCollision(player)){
                 player.gotDmg();
                 this.dispose();
-                System.out.println("score pas dmg :"+SCORE);
                 game.setScreen(new DmgScreen(game, player.getHealthPoint(),SCORE));
             }
 
@@ -114,6 +113,7 @@ public class PlayScreen implements Screen {
             game.setScreen(new RestartScreen(game,SCORE));
         }
         game.batch.draw(smallHP,0,990);
+        font.setColor(Color.BLACK);
         font.draw(game.batch,"SCORE :"+SCORE,1300,1060);
         font.draw(game.batch," "+player.getHealthPoint(),smallHP.getWidth(),1060);
 
@@ -151,5 +151,8 @@ public class PlayScreen implements Screen {
         player.getObjTexture().dispose();
         font.dispose();
         smallHP.dispose();
+        for(Ground ground : grounds){
+            ground.getObjTexture().dispose();
+        }
     }
 }
