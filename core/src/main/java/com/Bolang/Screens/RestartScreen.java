@@ -113,7 +113,6 @@ public class RestartScreen implements Screen {
         restartButtonActive.dispose();
         restartButtonInactive.dispose();
         music.dispose();
-        sound.dispose();
         font.dispose();
     }
 }

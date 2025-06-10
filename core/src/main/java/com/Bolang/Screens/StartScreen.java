@@ -48,9 +48,9 @@ public class StartScreen implements Screen {
         if(Gdx.input.getX() < START_BUTTON_X +  START_BUTTON_WITDH && Gdx.input.getX() > START_BUTTON_X && Bolang.GAME_HEIGHT - Gdx.input.getY() < START_BUTTON_HEIGHT + START_BUTTON_Y && Bolang.GAME_HEIGHT - Gdx.input.getY() > START_BUTTON_HEIGHT) {
             game.batch.draw(playButtonActive, START_BUTTON_X, START_BUTTON_Y);
             if (Gdx.input.isTouched()) {
+                sound.play();
                 this.dispose();
                 game.setScreen(new PlayScreen(game,playerHp,score));
-                sound.play();
                 music.stop();
 
             }
@@ -86,6 +86,5 @@ public class StartScreen implements Screen {
         playButtonActive.dispose();
         playButtonInactive.dispose();
         music.dispose();
-        sound.dispose();
     }
 }
