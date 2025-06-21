@@ -32,7 +32,7 @@ public class StartScreen implements Screen {
     public void show() {
         background = new Texture("background.png");
         playButtonActive = new Texture("playButtonActive.png");
-        playButtonInactive = new Texture("playButtonInactive.png");
+        playButtonInactive = new Texture("playButtonInActive.png");
         music = Gdx.audio.newMusic(Gdx.files.internal("music/music4.mp3"));
         sound = Gdx.audio.newSound(Gdx.files.internal("music/sfx/coin2.mp3"));
     }

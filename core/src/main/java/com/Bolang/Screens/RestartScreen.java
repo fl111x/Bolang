@@ -43,7 +43,7 @@ public class RestartScreen implements Screen {
     public void show() {
         background = new Texture("background.png");
         restartButtonActive = new Texture("restartButtonActive.png");
-        restartButtonInactive = new Texture("restartButtonInactive.png");
+        restartButtonInactive = new Texture("restartButtonInActive.png");
         music = Gdx.audio.newMusic(Gdx.files.internal("music/music4.mp3"));
         sound = Gdx.audio.newSound(Gdx.files.internal("music/sfx/coin2.mp3"));
         font = new BitmapFont(Gdx.files.internal("font/Dmg.fnt"));

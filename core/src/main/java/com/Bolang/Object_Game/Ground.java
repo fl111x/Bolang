@@ -39,7 +39,7 @@ public class Ground extends ObjGame{
         Random rand = new Random();
         float maxX = super.getX() + super.getWidth() - MAX_X_MOB;
         float minX = super.getX() + MIN_X_MOB;
-        float x1 = rand.nextFloat(maxX-minX+1)+minX;
+        float x1 = rand.nextFloat()*(maxX-minX+1)+minX;
 
         Mobs.get(mobSpawn()).setX(x1);
 
